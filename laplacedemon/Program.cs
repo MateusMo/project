@@ -1,12 +1,19 @@
 using laplacedemon.Data;
+using laplacedemon.Data.PopulatinDatabase;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(x =>
+{
+    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    x.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault;
+}); 
 builder.Services.AddDbContext<LaPlaceDemonDataContext>();
+
 
 var app = builder.Build();
 
@@ -27,5 +34,13 @@ app.MapControllerRoute(
     pattern: "{controller}/{action=Index}/{id?}");
 
 app.MapFallbackToFile("index.html"); ;
-
+CreateUser();
 app.Run();
+
+
+static void CreateUser()
+{
+    var dataContext = new LaPlaceDemonDataContext();
+    var verify = new CreateUser(dataContext);
+    verify.CreateFirstUser();
+}

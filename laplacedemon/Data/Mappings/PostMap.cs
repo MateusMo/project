@@ -25,9 +25,9 @@ namespace laplacedemon.Data.Mappings
                 .HasColumnType("NVARCHAR")
                 .HasMaxLength(200);
 
-            builder.Property(x => x.Title)
+            builder.Property(x => x.Comment)
                 .IsRequired()
-                .HasColumnName("Cooment")
+                .HasColumnName("Comment")
                 .HasColumnType("NVARCHAR")
                 .HasMaxLength(2000);
 

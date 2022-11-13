@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace laplacedemon.Migrations
 {
-    public partial class relationship : Migration
+    public partial class firstmigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -30,8 +30,8 @@ namespace laplacedemon.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Cooment = table.Column<string>(type: "NVARCHAR(2000)", maxLength: 2000, nullable: false),
-                    Comment = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Title = table.Column<string>(type: "NVARCHAR(200)", maxLength: 200, nullable: false),
+                    Comment = table.Column<string>(type: "NVARCHAR(2000)", maxLength: 2000, nullable: false),
                     Coin = table.Column<string>(type: "NVARCHAR(200)", maxLength: 200, nullable: false),
                     Date = table.Column<DateTimeOffset>(type: "DateTimeOffset", nullable: false),
                     IsActive = table.Column<int>(type: "int", nullable: false),

@@ -12,8 +12,8 @@ using laplacedemon.Data;
 namespace laplacedemon.Migrations
 {
     [DbContext(typeof(LaPlaceDemonDataContext))]
-    [Migration("20221113013858_relationship")]
-    partial class relationship
+    [Migration("20221113194556_first-migration")]
+    partial class firstmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -44,7 +44,9 @@ namespace laplacedemon.Migrations
 
                     b.Property<string>("Comment")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(2000)
+                        .HasColumnType("NVARCHAR(2000)")
+                        .HasColumnName("Comment");
 
                     b.Property<DateTimeOffset>("Date")
                         .HasColumnType("DateTimeOffset")
@@ -52,9 +54,9 @@ namespace laplacedemon.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(2000)
-                        .HasColumnType("NVARCHAR(2000)")
-                        .HasColumnName("Cooment");
+                        .HasMaxLength(200)
+                        .HasColumnType("NVARCHAR(200)")
+                        .HasColumnName("Title");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
