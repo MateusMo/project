@@ -22,25 +22,26 @@ if (!app.Environment.IsDevelopment())
 {
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
+   
 }
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
-
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action=Index}/{id?}");
 
 app.MapFallbackToFile("index.html"); ;
-CreateUser();
+PopulateDatabase();
 app.Run();
 
 
-static void CreateUser()
+static void PopulateDatabase()
 {
     var dataContext = new LaPlaceDemonDataContext();
-    var verify = new CreateUser(dataContext);
+    var verify = new CreateEntities(dataContext);
     verify.CreateFirstUser();
+    verify.CreateFirstCoin();
 }

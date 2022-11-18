@@ -7,7 +7,8 @@ namespace laplacedemon.Models
         public int Id { get; set; }
         public string Title { get; set; }
         public string Comment { get; set; }
-        public string Coin { get; set; }
+        public Coin Coin { get; set; }
+        public float SuggestedPrice { get; set; }
         public DateTimeOffset Date { get; set; }
         public bool isActive { get; set; }
         public int likes { get; set; }

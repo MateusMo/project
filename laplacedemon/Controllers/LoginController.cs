@@ -1,5 +1,4 @@
 ﻿using laplacedemon.Data;
-using laplacedemon.ViewModel.Login;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using laplacedemon.Models;

@@ -1,4 +1,4 @@
-﻿namespace laplacedemon.ViewModel
+﻿namespace laplacedemon.ViewModel.Result
 {
     public class ResultViewModel<T>
     {

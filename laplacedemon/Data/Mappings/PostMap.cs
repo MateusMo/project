@@ -31,17 +31,15 @@ namespace laplacedemon.Data.Mappings
                 .HasColumnType("NVARCHAR")
                 .HasMaxLength(2000);
 
-            builder.Property(x => x.Coin)
-                .IsRequired()
-                .HasColumnName("Coin")
-                .HasColumnType("NVARCHAR")
-                .HasMaxLength(200);
-
-
             builder.Property(x => x.Date)
                 .IsRequired()
                 .HasColumnName("Date")
                 .HasColumnType("DateTimeOffset");
+
+            builder.Property(x => x.SuggestedPrice)
+               .IsRequired()
+               .HasColumnName("SuggestedPrice")
+               .HasColumnType("Float");
 
             builder.Property(x => x.isActive)
                 .IsRequired()
@@ -59,6 +57,12 @@ namespace laplacedemon.Data.Mappings
                 .WithMany(x => x.Post)
                 .HasConstraintName("FK_Post_User")
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder
+               .HasOne(x => x.Coin)
+               .WithMany(x => x.Post)
+               .HasConstraintName("FK_Post_Coin")
+               .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

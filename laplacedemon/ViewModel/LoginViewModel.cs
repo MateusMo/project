@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace laplacedemon.ViewModel.Login
+namespace laplacedemon.ViewModel
 {
     public class LoginViewModel
     {

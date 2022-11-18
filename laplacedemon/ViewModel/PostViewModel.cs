@@ -1,6 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using laplacedemon.Models;
+using System.ComponentModel.DataAnnotations;
 
-namespace laplacedemon.ViewModel.Login
+namespace laplacedemon.ViewModel
 {
     public class PostViewModel
     {
@@ -12,8 +13,9 @@ namespace laplacedemon.ViewModel.Login
         [StringLength(2000, MinimumLength = 3, ErrorMessage = "Este campo deve conter entre 3 e 2000 caracteres")]
         public string Comment { get; set; }
 
-        [Required(ErrorMessage = "A moeda é obrigatória")]
-        public string Coin { get; set; }
+        [Required(ErrorMessage = "O preço sugerido é obrigatório")]
+        public float SuggestedPrice { get; set; }
+        public int CoinId { get; set; }
         public DateTimeOffset Date { get; set; }
         public bool isActive { get; set; }
         public int likes { get; set; }

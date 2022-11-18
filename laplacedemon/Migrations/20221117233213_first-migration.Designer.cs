@@ -12,7 +12,7 @@ using laplacedemon.Data;
 namespace laplacedemon.Migrations
 {
     [DbContext(typeof(LaPlaceDemonDataContext))]
-    [Migration("20221113194556_first-migration")]
+    [Migration("20221117233213_first-migration")]
     partial class firstmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,6 +23,33 @@ namespace laplacedemon.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("laplacedemon.Models.Coin", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTimeOffset>("LastUpdate")
+                        .HasColumnType("DateTimeOffset")
+                        .HasColumnName("LastUpdate");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(800)
+                        .HasColumnType("NVARCHAR(800)")
+                        .HasColumnName("Name");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("Float")
+                        .HasColumnName("Price");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Coin", (string)null);
+                });
 
             modelBuilder.Entity("laplacedemon.Models.Post", b =>
                 {
@@ -36,11 +63,8 @@ namespace laplacedemon.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Coin")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("NVARCHAR(200)")
-                        .HasColumnName("Coin");
+                    b.Property<int>("CoinId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Comment")
                         .IsRequired()
@@ -51,6 +75,10 @@ namespace laplacedemon.Migrations
                     b.Property<DateTimeOffset>("Date")
                         .HasColumnType("DateTimeOffset")
                         .HasColumnName("Date");
+
+                    b.Property<double>("SuggestedPrice")
+                        .HasColumnType("Float")
+                        .HasColumnName("SuggestedPrice");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -71,6 +99,8 @@ namespace laplacedemon.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CoinId");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("Post", (string)null);
@@ -90,12 +120,23 @@ namespace laplacedemon.Migrations
                         .HasColumnType("NVARCHAR(200)")
                         .HasColumnName("NickName");
 
+                    b.Property<int>("analist")
+                        .ValueGeneratedOnUpdateSometimes()
+                        .HasColumnType("int")
+                        .HasColumnName("IsBloqued");
+
                     b.Property<string>("base64Photo")
                         .IsRequired()
                         .HasColumnType("NVARCHAR")
                         .HasColumnName("Base64Photo");
 
                     b.Property<int>("isBloqued")
+                        .ValueGeneratedOnUpdateSometimes()
+                        .HasColumnType("int")
+                        .HasColumnName("IsBloqued");
+
+                    b.Property<int>("isExpert")
+                        .ValueGeneratedOnUpdateSometimes()
                         .HasColumnType("int")
                         .HasColumnName("IsBloqued");
 
@@ -106,6 +147,13 @@ namespace laplacedemon.Migrations
 
             modelBuilder.Entity("laplacedemon.Models.Post", b =>
                 {
+                    b.HasOne("laplacedemon.Models.Coin", "Coin")
+                        .WithMany("Post")
+                        .HasForeignKey("CoinId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_Post_Coin");
+
                     b.HasOne("laplacedemon.Models.User", "User")
                         .WithMany("Post")
                         .HasForeignKey("UserId")
@@ -113,7 +161,14 @@ namespace laplacedemon.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_Post_User");
 
+                    b.Navigation("Coin");
+
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("laplacedemon.Models.Coin", b =>
+                {
+                    b.Navigation("Post");
                 });
 
             modelBuilder.Entity("laplacedemon.Models.User", b =>

@@ -1,7 +1,7 @@
 ﻿using laplacedemon.Data;
 using laplacedemon.Models;
 using laplacedemon.ViewModel;
-using laplacedemon.ViewModel.Login;
+using laplacedemon.ViewModel.Result;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
@@ -22,22 +22,25 @@ namespace laplacedemon.Controllers
             try
             {
                 var user = _context.Users.FirstOrDefault(x => x.Id == newPost.UserId);
-                if (user == null)
+                var coin = _context.Coins.FirstOrDefault(x => x.Id == newPost.CoinId);
+                if (user == null || coin == null)
                     return BadRequest(new ResultViewModel<User>("Nenhum usuário foi encontrado"));
 
                 var post = new Post {
                     Title = newPost.Title,
                     Comment = newPost.Comment,
-                    Coin = newPost.Coin,
                     Date = DateTime.Now,
+                    SuggestedPrice = newPost.SuggestedPrice,
                     isActive = true,
                     likes = newPost.likes,
                     Author = user.Nickname,
-                    User = user
+                    User = user,
+                    Coin = coin
                 };
 
                 _context.Posts.Add(post);
                 _context.SaveChanges();
+
                 return Ok(new ResultViewModel<Post>(post));
             }
             catch (Exception)
@@ -45,6 +48,7 @@ namespace laplacedemon.Controllers
                 return StatusCode(500, new ResultViewModel<string>("Erro interno no servidor"));
             }
         }
+
         [HttpGet("v1/post")]
         public async Task<IActionResult> GetAllPosts()
         {
@@ -73,6 +77,7 @@ namespace laplacedemon.Controllers
                 return StatusCode(500, new ResultViewModel<string>("Erro interno no servidor"));
             }
         }
+
         [HttpPut("v1/post")]
         public async Task<IActionResult> Update([FromBody] Post post)
         {
@@ -98,15 +103,17 @@ namespace laplacedemon.Controllers
                 throw;
             }
         }
-        [HttpDelete("v1/post/delete")]
-        public async Task<IActionResult> Delete([FromQuery]int id)
+        [HttpDelete("v1/post/{id}")]
+        public async Task<IActionResult> Delete(int id)
         {
             try
             {
                 var dbPost = _context.Posts.FirstOrDefault(x => x.Id == id);
                 if( dbPost == null) return NotFound();
+                
                 _context.Posts.Remove(dbPost);
                 _context.SaveChanges();
+                
                 return Ok(new ResultViewModel<Post>(dbPost));
             }
             catch (Exception)
@@ -114,7 +121,5 @@ namespace laplacedemon.Controllers
                 throw;
             }
         }
-
     }
-    
 }
