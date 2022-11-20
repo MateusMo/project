@@ -1,4 +1,5 @@
-﻿using laplacedemon.Models;
+﻿using laplacedemon.Models.Coin;
+
 namespace laplacedemon.Data.PopulatinDatabase
 {
     public class CreateEntities

@@ -1,10 +1,10 @@
-﻿using laplacedemon.Models;
+﻿using laplacedemon.Models.UserEnvironment;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.Diagnostics;
 using System.Reflection.Emit;
 
-namespace laplacedemon.Data.Mappings
+namespace laplacedemon.Data.Mappings.UserMappings
 {
     public class UserMap : IEntityTypeConfiguration<User>
     {
@@ -31,24 +31,7 @@ namespace laplacedemon.Data.Mappings
             builder.Property(x => x.isBloqued)
                 .IsRequired()
                 .HasColumnName("IsBloqued")
-                .HasColumnType("int");
-
-            builder.Property(x => x.analist)
-                .IsRequired()
-                .HasColumnName("Analist")
-                .HasColumnType("int");
-
-            builder.Property(x => x.isExpert)
-                .IsRequired()
-                .HasColumnName("IsExpert")
-                .HasColumnType("int");
-
-            builder.Property(x => x.base64Photo)
-                .IsRequired()
-                .HasColumnName("Base64Photo")
-                .HasColumnType("NVARCHAR");
-
-            
+                .HasColumnType("bit");
         }
     }
 }

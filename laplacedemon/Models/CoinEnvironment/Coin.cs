@@ -1,4 +1,6 @@
-﻿namespace laplacedemon.Models
+﻿using laplacedemon.Models.PostEnvironment;
+
+namespace laplacedemon.Models.CoinEnvironment
 {
     public class Coin
     {

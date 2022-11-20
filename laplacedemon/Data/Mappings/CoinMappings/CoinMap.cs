@@ -1,8 +1,8 @@
-﻿using laplacedemon.Models;
+﻿using laplacedemon.Models.CoinEnvironment;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace laplacedemon.Data.Mappings
+namespace laplacedemon.Data.Mappings.CoinMappings
 {
     public class CoinMap : IEntityTypeConfiguration<Coin>
     {

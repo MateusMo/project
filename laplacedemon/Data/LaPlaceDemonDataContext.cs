@@ -1,5 +1,9 @@
-﻿using laplacedemon.Data.Mappings;
-using laplacedemon.Models;
+﻿using laplacedemon.Data.Mappings.CoinMappings;
+using laplacedemon.Data.Mappings.UserMappings;
+using laplacedemon.Data.Mappings.PostMappings;
+using laplacedemon.Models.UserEnvironment;
+using laplacedemon.Models.PostEnvironment;
+using laplacedemon.Models.CoinEnvironment;
 using Microsoft.EntityFrameworkCore;
 
 namespace laplacedemon.Data
@@ -15,8 +19,15 @@ namespace laplacedemon.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //user
             modelBuilder.ApplyConfiguration(new UserMap());
+            modelBuilder.ApplyConfiguration(new UserInfoMap());
+            modelBuilder.ApplyConfiguration(new UserProfileMap());
+            modelBuilder.ApplyConfiguration(new UserProfileViewMap());
+            //post
             modelBuilder.ApplyConfiguration(new PostMap());
+            modelBuilder.ApplyConfiguration(new PostCommentMap());
+            //coin
             modelBuilder.ApplyConfiguration(new CoinMap());
         }
     }

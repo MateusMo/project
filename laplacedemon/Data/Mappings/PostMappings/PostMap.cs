@@ -1,24 +1,24 @@
-﻿using laplacedemon.Models;
+﻿using laplacedemon.Models.PostEnvironment;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.Diagnostics;
 using System.Reflection.Emit;
 
-namespace laplacedemon.Data.Mappings
+namespace laplacedemon.Data.Mappings.PostMappings
 {
     public class PostMap : IEntityTypeConfiguration<Post>
     {
         public void Configure(EntityTypeBuilder<Post> builder)
         {
-            
+
             builder.ToTable("Post");
-            
+
             builder.HasKey(x => x.Id);
-            
+
             builder.Property(x => x.Id)
                 .ValueGeneratedOnAdd()
                 .UseIdentityColumn();
-            
+
             builder.Property(x => x.Title)
                 .IsRequired()
                 .HasColumnName("Title")
@@ -31,27 +31,32 @@ namespace laplacedemon.Data.Mappings
                 .HasColumnType("NVARCHAR")
                 .HasMaxLength(2000);
 
+            builder.Property(x => x.SuggestedPrice)
+                .IsRequired()
+                .HasColumnName("SuggestedPrice")
+                .HasColumnType("FLOAT");
+
             builder.Property(x => x.Date)
                 .IsRequired()
                 .HasColumnName("Date")
                 .HasColumnType("DateTimeOffset");
 
-            builder.Property(x => x.SuggestedPrice)
-               .IsRequired()
-               .HasColumnName("SuggestedPrice")
-               .HasColumnType("Float");
-
             builder.Property(x => x.isActive)
                 .IsRequired()
-                .HasColumnName("IsActive")
-                .HasColumnType("int");
+                .HasColumnName("isActive")
+                .HasColumnType("Bit");
 
-            builder.Property(x => x.likes)
+            builder.Property(x => x.Bulls)
                 .IsRequired()
-                .HasColumnName("Likes")
+                .HasColumnName("Bulls")
                 .HasColumnType("int");
 
+            builder.Property(x => x.Bears)
+                .IsRequired()
+                .HasColumnName("Bears")
+                .HasColumnType("int");
 
+            //relacionamentos
             builder
                 .HasOne(x => x.User)
                 .WithMany(x => x.Post)
