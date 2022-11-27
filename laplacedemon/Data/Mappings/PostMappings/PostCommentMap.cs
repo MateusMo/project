@@ -33,6 +33,13 @@ namespace laplacedemon.Data.Mappings.PostMappings
                 .HasColumnName("Date")
                 .HasColumnType("DateTimeOffset");
 
+            builder
+                .HasOne(x => x.Post)
+                .WithMany(x => x.PostComments)
+                .HasConstraintName("FK_PostComment_Post")
+                ;
+
+            builder.HasOne(x => x.User);
         }
     }
 }

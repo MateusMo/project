@@ -61,13 +61,13 @@ namespace laplacedemon.Data.Mappings.PostMappings
                 .HasOne(x => x.User)
                 .WithMany(x => x.Post)
                 .HasConstraintName("FK_Post_User")
-                .OnDelete(DeleteBehavior.Cascade);
+                ;
 
             builder
                .HasOne(x => x.Coin)
                .WithMany(x => x.Post)
                .HasConstraintName("FK_Post_Coin")
-               .OnDelete(DeleteBehavior.Cascade);
+               ;
         }
     }
 }

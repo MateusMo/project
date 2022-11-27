@@ -12,7 +12,8 @@ namespace laplacedemon.Models.PostEnvironment
         public bool isActive { get; set; }
         public int Bulls { get; set; }
         public int Bears { get; set; }
-        public Coin Coin { get; set; }
-        public User User { get; set; }
+        public Coin? Coin { get; set; }
+        public User? User { get; set; }
+        public ICollection<PostComment>? PostComments { get; set; }
     }
 }

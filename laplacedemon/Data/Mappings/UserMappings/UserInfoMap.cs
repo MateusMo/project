@@ -23,7 +23,7 @@ namespace laplacedemon.Data.Mappings.UserMappings
             builder.Property(x => x.Photo)
                 .IsRequired()
                 .HasColumnName("Photo")
-                .HasColumnType("int");
+                .HasColumnType("varchar");
 
             builder.Property(x => x.TrustedAsAnalist)
                 .IsRequired()

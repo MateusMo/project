@@ -32,6 +32,10 @@ namespace laplacedemon.Data.Mappings.UserMappings
                 .IsRequired()
                 .HasColumnName("IsBloqued")
                 .HasColumnType("bit");
+
+            builder.HasOne(x => x.UserInfo);
+            builder.HasOne(x => x.UserProfile);
+            builder.HasOne(x => x.UserProfileView);
         }
     }
 }

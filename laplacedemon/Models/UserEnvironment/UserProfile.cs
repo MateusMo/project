@@ -11,7 +11,6 @@ namespace laplacedemon.Models.UserEnvironment
         public ICollection<Coin> PreferedCoins { get; set; }
         public ICollection<Post> LastPost { get; set; }
         public ICollection<UserProfileView> LastUserView { get; set; }
-        public User User { get; set; }
 
 
     }

@@ -1,4 +1,6 @@
-﻿using laplacedemon.Models.Coin;
+﻿using laplacedemon.Models.CoinEnvironment;
+using laplacedemon.Models.UserEnvironment;
+
 
 namespace laplacedemon.Data.PopulatinDatabase
 {
@@ -19,9 +21,7 @@ namespace laplacedemon.Data.PopulatinDatabase
                 var user = new User();
                 user.Nickname = "Mat";
                 user.isBloqued = false;
-                user.base64Photo = "";
-                user.isExpert = false;
-                user.analist = 3;
+                
 
                 _dataContext.Users.Add(user);
                 _dataContext.SaveChanges();

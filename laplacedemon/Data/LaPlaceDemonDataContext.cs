@@ -11,7 +11,11 @@ namespace laplacedemon.Data
     public class LaPlaceDemonDataContext : DbContext
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<UserInfo> UserInfos { get; set; }
+        public DbSet<UserProfile> UserProfiles { get; set; }
+        public DbSet<UserProfileView> UserProfileViews { get; set; }
         public DbSet<Post> Posts { get; set; }
+        public DbSet<PostComment> PostComments { get; set; }
         public DbSet<Coin> Coins { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
@@ -24,9 +28,11 @@ namespace laplacedemon.Data
             modelBuilder.ApplyConfiguration(new UserInfoMap());
             modelBuilder.ApplyConfiguration(new UserProfileMap());
             modelBuilder.ApplyConfiguration(new UserProfileViewMap());
+            
             //post
             modelBuilder.ApplyConfiguration(new PostMap());
             modelBuilder.ApplyConfiguration(new PostCommentMap());
+
             //coin
             modelBuilder.ApplyConfiguration(new CoinMap());
         }
