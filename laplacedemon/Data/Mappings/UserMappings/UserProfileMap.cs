@@ -31,12 +31,7 @@ namespace laplacedemon.Data.Mappings.UserMappings
                 .HasColumnName("Description")
                 .HasColumnType("VARCHAR")
                 .HasMaxLength(2000);
-
-            builder.Property(x => x.Description)
-                .IsRequired()
-                .HasColumnName("Description")
-                .HasColumnType("VARCHAR")
-                .HasMaxLength(2000);
+           
         }
     }
 }

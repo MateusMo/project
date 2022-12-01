@@ -20,7 +20,8 @@ namespace laplacedemon.Data.Mappings.UserMappings
                 .ValueGeneratedOnAdd()
                 .UseIdentityColumn();
 
-            builder.Property(x => x.Id)
+
+            builder.Property(x => x.UserVisitorId)
                 .IsRequired()
                 .HasColumnName("UserVisitorId")
                 .HasColumnType("int");

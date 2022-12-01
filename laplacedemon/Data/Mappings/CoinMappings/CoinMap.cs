@@ -8,7 +8,7 @@ namespace laplacedemon.Data.Mappings.CoinMappings
     {
         public void Configure(EntityTypeBuilder<Coin> builder)
         {
-            builder.ToTable("Coin");
+            builder.ToTable("CoinObj");
 
             builder.HasKey(x => x.Id);
 

@@ -5,10 +5,25 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace laplacedemon.Migrations
 {
-    public partial class refactorNullable : Migration
+    public partial class coinsRefactor : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "CoinObj",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "NVARCHAR(800)", maxLength: 800, nullable: false),
+                    Price = table.Column<double>(type: "Float", nullable: false),
+                    LastUpdate = table.Column<DateTimeOffset>(type: "DateTimeOffset", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CoinObj", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "UserInfo",
                 columns: table => new
@@ -39,44 +54,17 @@ namespace laplacedemon.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Coin",
+                name: "UserProfileView",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "NVARCHAR(800)", maxLength: 800, nullable: false),
-                    Price = table.Column<double>(type: "Float", nullable: false),
-                    LastUpdate = table.Column<DateTimeOffset>(type: "DateTimeOffset", nullable: false),
-                    UserProfileId = table.Column<int>(type: "int", nullable: true)
+                    UserVisitorId = table.Column<int>(type: "int", nullable: false),
+                    ViewDate = table.Column<DateTimeOffset>(type: "DateTimeOffset", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Coin", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Coin_UserProfile_UserProfileId",
-                        column: x => x.UserProfileId,
-                        principalTable: "UserProfile",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserProfileView",
-                columns: table => new
-                {
-                    UserVisitorId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserVisitorId1 = table.Column<int>(type: "int", nullable: false),
-                    ViewDate = table.Column<DateTimeOffset>(type: "DateTimeOffset", nullable: false),
-                    UserProfileId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserProfileView", x => x.UserVisitorId);
-                    table.ForeignKey(
-                        name: "FK_UserProfileView_UserProfile_UserProfileId",
-                        column: x => x.UserProfileId,
-                        principalTable: "UserProfile",
-                        principalColumn: "Id");
+                    table.PrimaryKey("PK_UserProfileView", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -108,7 +96,7 @@ namespace laplacedemon.Migrations
                         name: "FK_User_UserProfileView_UserProfileViewId",
                         column: x => x.UserProfileViewId,
                         principalTable: "UserProfileView",
-                        principalColumn: "UserVisitorId");
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -125,8 +113,7 @@ namespace laplacedemon.Migrations
                     Bulls = table.Column<int>(type: "int", nullable: false),
                     Bears = table.Column<int>(type: "int", nullable: false),
                     CoinId = table.Column<int>(type: "int", nullable: true),
-                    UserId = table.Column<int>(type: "int", nullable: true),
-                    UserProfileId = table.Column<int>(type: "int", nullable: true)
+                    UserId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -134,17 +121,12 @@ namespace laplacedemon.Migrations
                     table.ForeignKey(
                         name: "FK_Post_Coin",
                         column: x => x.CoinId,
-                        principalTable: "Coin",
+                        principalTable: "CoinObj",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Post_User",
                         column: x => x.UserId,
                         principalTable: "User",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Post_UserProfile_UserProfileId",
-                        column: x => x.UserProfileId,
-                        principalTable: "UserProfile",
                         principalColumn: "Id");
                 });
 
@@ -176,11 +158,6 @@ namespace laplacedemon.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Coin_UserProfileId",
-                table: "Coin",
-                column: "UserProfileId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Post_CoinId",
                 table: "Post",
                 column: "CoinId");
@@ -189,11 +166,6 @@ namespace laplacedemon.Migrations
                 name: "IX_Post_UserId",
                 table: "Post",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Post_UserProfileId",
-                table: "Post",
-                column: "UserProfileId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PostComment_PostId",
@@ -219,11 +191,6 @@ namespace laplacedemon.Migrations
                 name: "IX_User_UserProfileViewId",
                 table: "User",
                 column: "UserProfileViewId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserProfileView_UserProfileId",
-                table: "UserProfileView",
-                column: "UserProfileId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -235,7 +202,7 @@ namespace laplacedemon.Migrations
                 name: "Post");
 
             migrationBuilder.DropTable(
-                name: "Coin");
+                name: "CoinObj");
 
             migrationBuilder.DropTable(
                 name: "User");
@@ -244,10 +211,10 @@ namespace laplacedemon.Migrations
                 name: "UserInfo");
 
             migrationBuilder.DropTable(
-                name: "UserProfileView");
+                name: "UserProfile");
 
             migrationBuilder.DropTable(
-                name: "UserProfile");
+                name: "UserProfileView");
         }
     }
 }

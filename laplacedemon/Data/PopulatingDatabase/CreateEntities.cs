@@ -75,8 +75,6 @@ namespace laplacedemon.Data.PopulatinDatabase
             }
 
             return Name;
-
-
         }
     }
 }

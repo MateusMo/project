@@ -12,8 +12,8 @@ using laplacedemon.Data;
 namespace laplacedemon.Migrations
 {
     [DbContext(typeof(LaPlaceDemonDataContext))]
-    [Migration("20221127021250_refactorNullable")]
-    partial class refactorNullable
+    [Migration("20221128220856_coinsRefactor")]
+    partial class coinsRefactor
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -46,14 +46,9 @@ namespace laplacedemon.Migrations
                         .HasColumnType("Float")
                         .HasColumnName("Price");
 
-                    b.Property<int?>("UserProfileId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserProfileId");
-
-                    b.ToTable("Coin", (string)null);
+                    b.ToTable("CoinObj", (string)null);
                 });
 
             modelBuilder.Entity("laplacedemon.Models.PostEnvironment.Post", b =>
@@ -98,9 +93,6 @@ namespace laplacedemon.Migrations
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserProfileId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("isActive")
                         .HasColumnType("Bit")
                         .HasColumnName("isActive");
@@ -110,8 +102,6 @@ namespace laplacedemon.Migrations
                     b.HasIndex("CoinId");
 
                     b.HasIndex("UserId");
-
-                    b.HasIndex("UserProfileId");
 
                     b.ToTable("Post", (string)null);
                 });
@@ -250,17 +240,13 @@ namespace laplacedemon.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("UserVisitorId");
+                        .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("UserProfileId")
-                        .HasColumnType("int");
-
                     b.Property<int>("UserVisitorId")
                         .HasColumnType("int")
-                        .HasColumnName("UserVisitorId1");
+                        .HasColumnName("UserVisitorId");
 
                     b.Property<DateTimeOffset>("ViewDate")
                         .HasColumnType("DateTimeOffset")
@@ -268,16 +254,7 @@ namespace laplacedemon.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserProfileId");
-
                     b.ToTable("UserProfileView", (string)null);
-                });
-
-            modelBuilder.Entity("laplacedemon.Models.CoinEnvironment.Coin", b =>
-                {
-                    b.HasOne("laplacedemon.Models.UserEnvironment.UserProfile", null)
-                        .WithMany("PreferedCoins")
-                        .HasForeignKey("UserProfileId");
                 });
 
             modelBuilder.Entity("laplacedemon.Models.PostEnvironment.Post", b =>
@@ -291,10 +268,6 @@ namespace laplacedemon.Migrations
                         .WithMany("Post")
                         .HasForeignKey("UserId")
                         .HasConstraintName("FK_Post_User");
-
-                    b.HasOne("laplacedemon.Models.UserEnvironment.UserProfile", null)
-                        .WithMany("LastPost")
-                        .HasForeignKey("UserProfileId");
 
                     b.Navigation("Coin");
 
@@ -338,13 +311,6 @@ namespace laplacedemon.Migrations
                     b.Navigation("UserProfileView");
                 });
 
-            modelBuilder.Entity("laplacedemon.Models.UserEnvironment.UserProfileView", b =>
-                {
-                    b.HasOne("laplacedemon.Models.UserEnvironment.UserProfile", null)
-                        .WithMany("LastUserView")
-                        .HasForeignKey("UserProfileId");
-                });
-
             modelBuilder.Entity("laplacedemon.Models.CoinEnvironment.Coin", b =>
                 {
                     b.Navigation("Post");
@@ -358,15 +324,6 @@ namespace laplacedemon.Migrations
             modelBuilder.Entity("laplacedemon.Models.UserEnvironment.User", b =>
                 {
                     b.Navigation("Post");
-                });
-
-            modelBuilder.Entity("laplacedemon.Models.UserEnvironment.UserProfile", b =>
-                {
-                    b.Navigation("LastPost");
-
-                    b.Navigation("LastUserView");
-
-                    b.Navigation("PreferedCoins");
                 });
 #pragma warning restore 612, 618
         }
