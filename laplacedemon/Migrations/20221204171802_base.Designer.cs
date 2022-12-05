@@ -12,8 +12,8 @@ using laplacedemon.Data;
 namespace laplacedemon.Migrations
 {
     [DbContext(typeof(LaPlaceDemonDataContext))]
-    [Migration("20221128220856_coinsRefactor")]
-    partial class coinsRefactor
+    [Migration("20221204171802_base")]
+    partial class @base
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

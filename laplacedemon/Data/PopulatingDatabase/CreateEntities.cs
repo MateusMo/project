@@ -18,10 +18,28 @@ namespace laplacedemon.Data.PopulatinDatabase
             var isCreated = _dataContext.Users.FirstOrDefault(x => x.Nickname == "Mat");
             if(isCreated == null)
             {
-                var user = new User();
-                user.Nickname = "Mat";
-                user.isBloqued = false;
+                var userInfo = new UserInfo()
+                {
+                    Photo = "",
+                    TrustedAsAnalist = 0,
+                    TrustedAsExpertAnalist = false,
+                };
+
+                var userProfile = new UserProfile() 
+                { 
+                    Title = "Crypto Ghost",
+                    Description = "I create analysis here and share my reports"
+                };
+
+                var user = new User()
+                {
+                    Nickname = "Mat",
+                    isBloqued = false,
+                    UserInfo = userInfo,
+                    UserProfile = userProfile
+                };
                 
+
 
                 _dataContext.Users.Add(user);
                 _dataContext.SaveChanges();
@@ -33,7 +51,6 @@ namespace laplacedemon.Data.PopulatinDatabase
             var isCreated = _dataContext.Coins;
             if(isCreated.Count() == 0)
             {
-                var coinList = new List<Coin>();
                 int i = 0;
                 while (i < 20)
                 {

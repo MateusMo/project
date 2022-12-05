@@ -32,7 +32,7 @@ app.MapControllerRoute(
     pattern: "{controller}/{action=Index}/{id?}");
 
 app.MapFallbackToFile("index.html"); ;
-PopulateDatabase();
+//PopulateDatabase();
 app.Run();
 
 static void PopulateDatabase()
