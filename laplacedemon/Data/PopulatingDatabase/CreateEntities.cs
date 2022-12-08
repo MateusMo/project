@@ -1,6 +1,7 @@
 ﻿using laplacedemon.Models.CoinEnvironment;
+using laplacedemon.Models.PostEnvironment;
 using laplacedemon.Models.UserEnvironment;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace laplacedemon.Data.PopulatinDatabase
 {
@@ -10,38 +11,39 @@ namespace laplacedemon.Data.PopulatinDatabase
 
         public CreateEntities(LaPlaceDemonDataContext dataContext)
         {
-            this._dataContext = dataContext; 
+            this._dataContext = dataContext;
         }
 
         public void CreateFirstUser()
         {
             var isCreated = _dataContext.Users.FirstOrDefault(x => x.Nickname == "Mat");
-            if(isCreated == null)
+            if (isCreated == null)
             {
-                var userInfo = new UserInfo()
+                for(var i = 0; i <= 1000; i++)
                 {
-                    Photo = "",
-                    TrustedAsAnalist = 0,
-                    TrustedAsExpertAnalist = false,
-                };
+                    var userInfo = new UserInfo()
+                    {
+                        Photo = "",
+                        TrustedAsAnalist = 0,
+                        TrustedAsExpertAnalist = false,
+                    };
 
-                var userProfile = new UserProfile() 
-                { 
-                    Title = "Crypto Ghost",
-                    Description = "I create analysis here and share my reports"
-                };
+                    var userProfile = new UserProfile()
+                    {
+                        Title = GenerateName(20),
+                        Description = GenerateName(200)
+                    };
 
-                var user = new User()
-                {
-                    Nickname = "Mat",
-                    isBloqued = false,
-                    UserInfo = userInfo,
-                    UserProfile = userProfile
-                };
+                    var user = new User()
+                    {
+                        Nickname = GenerateName(10),
+                        isBloqued = false,
+                        UserInfo = userInfo,
+                        UserProfile = userProfile
+                    };
+                    _dataContext.Users.Add(user);
+                }
                 
-
-
-                _dataContext.Users.Add(user);
                 _dataContext.SaveChanges();
             }
         }
@@ -49,7 +51,7 @@ namespace laplacedemon.Data.PopulatinDatabase
         public void CreateFirstCoin()
         {
             var isCreated = _dataContext.Coins;
-            if(isCreated.Count() == 0)
+            if (isCreated.Count() == 0)
             {
                 int i = 0;
                 while (i < 20)
@@ -92,6 +94,36 @@ namespace laplacedemon.Data.PopulatinDatabase
             }
 
             return Name;
+        }
+
+        public void CreatePosts()
+        {
+            var posts = _dataContext.Posts;
+            if (posts.Count() == 0)
+            {
+                Random rnd = new Random();
+                for (var i = 0; i <= 1000; i++)
+                {
+                    var random = rnd.Next(1, 25);
+                    var user = _dataContext.Users.FirstOrDefault(x => x.Id == random + 1000);
+                    var coin = _dataContext.Coins.FirstOrDefault(x => x.Id == random);
+                    var post = new Post()
+                    {
+                        Title = GenerateName(10),
+                        Comment = GenerateName(1000),
+                        SuggestedPrice = NextFloat(new Random()),
+                        Date = DateTime.Now,
+                        isActive = i % 2 == 0 ? true : false,
+                        Bulls = i + 10,
+                        Bears = i < 2 ? i - 1 : 1,
+                        User = user,
+                        Coin = coin
+                    };
+
+                    _dataContext.Posts.Add(post);
+                    _dataContext.SaveChanges();
+                }
+            }
         }
     }
 }

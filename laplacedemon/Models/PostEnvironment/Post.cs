@@ -1,5 +1,7 @@
 ﻿using laplacedemon.Models.UserEnvironment;
 using laplacedemon.Models.CoinEnvironment;
+using System.Collections.ObjectModel;
+
 namespace laplacedemon.Models.PostEnvironment
 {
     public class Post
@@ -13,7 +15,9 @@ namespace laplacedemon.Models.PostEnvironment
         public int Bulls { get; set; }
         public int Bears { get; set; }
         public Coin? Coin { get; set; }
+        public int? CoinId { get; set; }
         public User? User { get; set; }
+        public int? UserId { get; set; }
         public ICollection<PostComment>? PostComments { get; set; }
     }
 }

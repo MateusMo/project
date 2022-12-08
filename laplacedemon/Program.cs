@@ -32,7 +32,7 @@ app.MapControllerRoute(
     pattern: "{controller}/{action=Index}/{id?}");
 
 app.MapFallbackToFile("index.html"); ;
-//PopulateDatabase();
+PopulateDatabase();
 app.Run();
 
 static void PopulateDatabase()
@@ -41,4 +41,5 @@ static void PopulateDatabase()
     var verify = new CreateEntities(dataContext);
     verify.CreateFirstUser();
     verify.CreateFirstCoin();
+    verify.CreatePosts();
 }
