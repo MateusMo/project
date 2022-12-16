@@ -105,7 +105,7 @@ namespace laplacedemon.Data.PopulatinDatabase
                 for (var i = 0; i <= 1000; i++)
                 {
                     var random = rnd.Next(1, 25);
-                    var user = _dataContext.Users.FirstOrDefault(x => x.Id == random + 1000);
+                    var user = _dataContext.Users.FirstOrDefault(x => x.Id == random);
                     var coin = _dataContext.Coins.FirstOrDefault(x => x.Id == random);
                     var post = new Post()
                     {

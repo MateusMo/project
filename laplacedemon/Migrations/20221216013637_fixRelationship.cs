@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace laplacedemon.Migrations
 {
-    public partial class @base : Migration
+    public partial class fixRelationship : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -124,7 +124,7 @@ namespace laplacedemon.Migrations
                         principalTable: "CoinObj",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Post_User",
+                        name: "FK_User_Post",
                         column: x => x.UserId,
                         principalTable: "User",
                         principalColumn: "Id");

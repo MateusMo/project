@@ -10,13 +10,13 @@ namespace laplacedemon.Data
 {
     public class LaPlaceDemonDataContext : DbContext
     {
-        public DbSet<User> Users { get; set; }
-        public DbSet<UserInfo> UserInfos { get; set; }
-        public DbSet<UserProfile> UserProfiles { get; set; }
-        public DbSet<UserProfileView> UserProfileViews { get; set; }
-        public DbSet<Post> Posts { get; set; }
-        public DbSet<PostComment> PostComments { get; set; }
-        public DbSet<Coin> Coins { get; set; }
+        public DbSet<User>? Users { get; set; }
+        public DbSet<UserInfo>? UserInfos { get; set; }
+        public DbSet<UserProfile>? UserProfiles { get; set; }
+        public DbSet<UserProfileView>? UserProfileViews { get; set; }
+        public DbSet<Post>? Posts { get; set; }
+        public DbSet<PostComment>? PostComments { get; set; }
+        public DbSet<Coin>? Coins { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
             => options.UseSqlServer("Server=localhost,1433;Database=project;User ID=sa;Password=1q2w3e4r@#$");

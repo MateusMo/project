@@ -4,7 +4,11 @@ namespace laplacedemon.Models.UserEnvironment
 {
     public class User
     {
-        public int Id { get; set; }
+        public User()
+        {
+
+        }
+        public int? Id { get; set; }
         public string? Nickname { get; set; }
         public bool? isBloqued { get; set; }
         public ICollection<Post>? Post { get; set; }
@@ -14,5 +18,6 @@ namespace laplacedemon.Models.UserEnvironment
         public int? UserProfileId { get; set; }
         public UserProfileView? UserProfileView { get; set; }
         public int? UserProfileViewId { get; set; }
+
     }
 }

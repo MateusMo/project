@@ -12,8 +12,8 @@ using laplacedemon.Data;
 namespace laplacedemon.Migrations
 {
     [DbContext(typeof(LaPlaceDemonDataContext))]
-    [Migration("20221204171802_base")]
-    partial class @base
+    [Migration("20221216013637_fixRelationship")]
+    partial class fixRelationship
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -147,11 +147,11 @@ namespace laplacedemon.Migrations
 
             modelBuilder.Entity("laplacedemon.Models.UserEnvironment.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"), 1L, 1);
 
                     b.Property<string>("Nickname")
                         .IsRequired()
@@ -168,7 +168,8 @@ namespace laplacedemon.Migrations
                     b.Property<int?>("UserProfileViewId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("isBloqued")
+                    b.Property<bool?>("isBloqued")
+                        .IsRequired()
                         .HasColumnType("bit")
                         .HasColumnName("IsBloqued");
 
@@ -267,7 +268,7 @@ namespace laplacedemon.Migrations
                     b.HasOne("laplacedemon.Models.UserEnvironment.User", "User")
                         .WithMany("Post")
                         .HasForeignKey("UserId")
-                        .HasConstraintName("FK_Post_User");
+                        .HasConstraintName("FK_User_Post");
 
                     b.Navigation("Coin");
 
