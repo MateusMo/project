@@ -50,20 +50,20 @@ namespace laplacedemon.Controllers.UserControllers
         {
             try
             {
+                var nicknameExists = _context.Users.FirstOrDefault(x => x.Nickname.ToLower() == userViewModel.NickName.ToLower());
+                if (nicknameExists != null)
+                    return StatusCode(500, new ResultViewModel<string>("Esse nome de usuário já existe"));
+
                 var userInfo = new UserInfo()
                 {
                     Photo = userViewModel.Photo,
                 };
-
-                _context.UserInfos.Add(userInfo);
 
                 var userProfile = new UserProfile()
                 {
                     Title = userViewModel.Title,
                     Description = userViewModel.Description
                 };
-
-                _context.UserProfiles.Add(userProfile);
 
                 var user = new User()
                 {
@@ -73,6 +73,8 @@ namespace laplacedemon.Controllers.UserControllers
                     UserProfile = userProfile
                 };
 
+                _context.UserInfos.Add(userInfo);
+                _context.UserProfiles.Add(userProfile);
                 _context.Users.Add(user);
                 _context.SaveChanges();
 

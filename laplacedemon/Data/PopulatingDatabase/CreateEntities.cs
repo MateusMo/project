@@ -16,7 +16,7 @@ namespace laplacedemon.Data.PopulatinDatabase
 
         public void CreateFirstUser()
         {
-            var isCreated = _dataContext.Users.FirstOrDefault(x => x.Nickname == "Mat");
+            var isCreated = _dataContext.Users.FirstOrDefault(x => x.Id > 0);
             if (isCreated == null)
             {
                 for(var i = 0; i <= 1000; i++)

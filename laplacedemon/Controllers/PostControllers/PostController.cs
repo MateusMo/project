@@ -41,7 +41,6 @@ namespace laplacedemon.Controllers.UserControllers
                     if(postDto.Post != null && postDto.User != null && postDto.Coin != null )
                     {
                         postsDtoList.Add(postDto);
-
                     }
                 }
 
@@ -64,7 +63,12 @@ namespace laplacedemon.Controllers.UserControllers
                 if (post == null)
                     return StatusCode(500, "Nenhum post foi encontrado");
 
-                return Ok(new ResultViewModel<Post>(post));
+                var postDto = new PostDto();
+                postDto.Post = post;
+                postDto.User = await _context.Users.AsNoTracking().FirstOrDefaultAsync(x => x.Id == post.UserId);
+                postDto.Coin = await _context.Coins.AsNoTracking().FirstOrDefaultAsync(x => x.Id == post.CoinId);
+
+                return Ok(new ResultViewModel<PostDto>(postDto));
             }
             catch (Exception)
             {
