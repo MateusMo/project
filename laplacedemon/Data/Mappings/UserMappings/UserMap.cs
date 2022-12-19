@@ -28,6 +28,13 @@ namespace laplacedemon.Data.Mappings.UserMappings
                 .HasColumnType("NVARCHAR")
                 .HasMaxLength(200);
 
+            // Propriedades
+            builder.Property(x => x.Password)
+                .IsRequired()
+                .HasColumnName("Password")
+                .HasColumnType("NVARCHAR")
+                .HasMaxLength(200);
+
             builder.Property(x => x.isBloqued)
                 .IsRequired()
                 .HasColumnName("IsBloqued")

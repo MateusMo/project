@@ -37,6 +37,7 @@ namespace laplacedemon.Data.PopulatinDatabase
                     var user = new User()
                     {
                         Nickname = GenerateName(10),
+                        Password = GenerateName(30),
                         isBloqued = false,
                         UserInfo = userInfo,
                         UserProfile = userProfile

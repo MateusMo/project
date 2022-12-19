@@ -157,6 +157,12 @@ namespace laplacedemon.Migrations
                         .HasColumnType("NVARCHAR(200)")
                         .HasColumnName("NickName");
 
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("NVARCHAR(200)")
+                        .HasColumnName("Password");
+
                     b.Property<int?>("UserInfoId")
                         .HasColumnType("int");
 
@@ -266,7 +272,7 @@ namespace laplacedemon.Migrations
                     b.HasOne("laplacedemon.Models.UserEnvironment.User", "User")
                         .WithMany("Post")
                         .HasForeignKey("UserId")
-                        .HasConstraintName("FK_User_Post");
+                        .HasConstraintName("FK_Post_User");
 
                     b.Navigation("Coin");
 
