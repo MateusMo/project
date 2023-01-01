@@ -1,0 +1,18 @@
+<div *ngIf="this.posts">
+  <div>
+    <h2>Recent posts:</h2>
+  </div>
+  <div style="margin:5rem" *ngFor="let post of this.posts">
+    <div >
+      <h5>Author: {{post.user.nickname}}</h5>
+      <h5>Target: {{post.coin.name}}</h5>
+      <h5>Suggested Price: {{post.coin.price}}</h5>
+    </div>
+    <div>
+      <h5>Title: {{post.post.title}}</h5>
+      <h5>Comment: {{post.post.comment}}</h5>
+      <h5>Bulls: {{post.post.bulls}}</h5>
+      <h5>Bears: {{post.post.bears}}</h5>
+    </div>
+  </div>
+</div>

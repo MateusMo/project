@@ -1,0 +1,21 @@
+<div class="container-fluid">
+    <div class="row d-flex align-items-center justify-content-center vh-100">
+        <div class="col-md-6 col-12 border border-solid p-2">
+            <h1>Posts:</h1>
+            <div>
+                {{text}}
+            </div>
+        </div>
+        <form class="col-md-6 col-12  text-center d-flex flex-column border border-solid p-2">
+            <h3>Login</h3>
+            <input type="text" class="form-control" placeholder="NickName" formControlName="nickName">
+            <input type="password" class="form-control mt-1" placeholder="Phrase1" formControlName="phrase1">
+            <input type="password" class="form-control mt-1" placeholder="Phrase2" formControlName="phrase2">
+            <input type="password" class="form-control mt-1" placeholder="Password" formControlName="password">
+            <a class="m-1">Create a hash</a>
+            <button (click)="login()" class="btn btn-dark">Login</button>
+        </form>
+        
+    </div>
+</div> 
+
